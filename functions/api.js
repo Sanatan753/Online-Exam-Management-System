@@ -52,7 +52,7 @@ module.exports.handler = serverless(app);
 // Routes
 app.get('/',(req,res) =>{
     const user = null;
-    res.render('Home_page',{user});
+    res.render('index',{user});
 })
 //below is the student_dashboard
 app.get('/student_dashboard',(req,res)=>{

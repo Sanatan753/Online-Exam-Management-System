@@ -47,6 +47,9 @@ app.use('/scripts', express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Export the app for serverless deployment
+module.exports.handler = serverless(app);
+
 // Routes
 app.get('/',(req,res) =>{
     const user = null;

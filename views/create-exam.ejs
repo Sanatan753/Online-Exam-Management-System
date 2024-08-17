@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Exam</title>
+    <style>
+        /* Cool infinite background scrolling animation.
+        * Twitter: @kootoopas */
+        /* Exo thin font from Google. */
+        @import url(https://fonts.googleapis.com/css?family=Exo:100);
+        /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
+        /* Animations */
+        @-webkit-keyframes bg-scrolling-reverse {
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+        @-moz-keyframes bg-scrolling-reverse {
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+        @-o-keyframes bg-scrolling-reverse {
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+        @keyframes bg-scrolling-reverse {
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+        @-webkit-keyframes bg-scrolling {
+            0% {
+                background-position: 50px 50px;
+            }
+        }
+        @-moz-keyframes bg-scrolling {
+            0% {
+                background-position: 50px 50px;
+            }
+        }
+        @-o-keyframes bg-scrolling {
+            0% {
+                background-position: 50px 50px;
+            }
+        }
+        @keyframes bg-scrolling {
+            0% {
+                background-position: 50px 50px;
+            }
+        }
+        /* Main styles */
+        body {
+            margin-top: 13.5rem;
+            color: #1e1e1e;
+            font: 400 16px/1.5 exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
+            text-align: center;
+            /* img size is 50x50 */
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+            -webkit-animation: bg-scrolling-reverse 0.92s infinite;
+            /* Safari 4+ */
+            -moz-animation: bg-scrolling-reverse 0.92s infinite;
+            /* Fx 5+ */
+            -o-animation: bg-scrolling-reverse 0.92s infinite;
+            /* Opera 12+ */
+            animation: bg-scrolling-reverse 0.92s infinite;
+            /* IE 10+ */
+            -webkit-animation-timing-function: linear;
+            -moz-animation-timing-function: linear;
+            -o-animation-timing-function: linear;
+            animation-timing-function: linear;
+        }
+        
+        .card-container{
+            margin: 0% auto;
+            padding: 10px ;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: solid 1px black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        form {
+            font-weight: bolder;
+            position: relative;
+            top: -100px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        </style>
+</head>
+<body>
+    <form class="card-container" action="/create-exam" method="post">
+        <h1>Create Exam</h1>
+        <label for="course">Course:</label>
+        <select id="course" name="course" required>
+            <option value="">Select a course...</option>
+            <option value="ITM">ITM</option>
+            <option value="IST">IST</option>
+            <option value="DSM">DSM</option>
+            <option value="CS">CS</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <label for="batch">Batch:</label>
+        <select id="batch" name="batch" required>
+            <option value="">Select a batch...</option>
+            <option value="20-21">20-21</option>
+            <option value="21-22">21-22</option>
+            <option value="22-23">22-23</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" required><br>
+
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject">
+            <option value="">Select a Subject...</option>
+            <option value="Digital Logic">Digital Logic</option>
+            <option value="Programming using C">Programming using C</option>
+            <option value="Organizational Behaviour">Organizational Behaviour</option>
+            <option value="Data Structure">Data Structure</option>
+            <option value="Probability and Statistics">Probability and Statistics</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

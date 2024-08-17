@@ -1,0 +1,340 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exams</title>
+    <style>
+        body{
+            background-color: rgb(255, 255, 255, 0);
+            background-image: url('/public/background_exam.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        body::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari, and Edge */
+            display: none;
+        }
+        #scheduled-exams{
+            display: inline-block;
+        }
+        #review-materials{
+            display: none;
+        }
+        #recent-exams{
+            display: none;
+        }
+        /* Add this CSS to your stylesheet */
+        #scheduled-tab, #review-tab, #recent-tab {
+            padding-left: 10px ;
+            padding-right: 10px;
+            text-decoration: none; /* Removes underline */
+            color: #4A90E2; /* Sets the link color */
+            font-family: 'Arial', sans-serif; /* Changes the font */
+            font-size: 16px; /* Adjusts the font size */
+            transition: transform 0.3s ease; /* Smooth transition for sliding effect */
+        }
+        #scheduled-tab:hover, #review-tab:hover, #recent-tab:hover {
+            transform: translateX(10px); /* Slides the link to the right on hover */
+            color: #3b7079; /* Changes the link color on hover */
+        }
+
+
+
+        h1{
+            text-align: center;
+            font-size: 24px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            text-transform: uppercase;
+            margin: auto;
+            padding: 10px 0;
+        }
+        h2{
+            text-align: center;
+            font-size: 24px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            text-transform: uppercase;
+            margin: auto;
+            padding: 10px 0;
+            background-color: #acacac;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        div a {
+            margin-bottom: 20px;
+            text-decoration: none; /* Remove default underline */
+            text-decoration: none;
+            color: #333; /* Link color */
+            padding: 10px 20px; /* Adjust padding as needed */
+            border: 1px solid #333; /* Border for each link */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        div a:hover {
+            font-weight: bold; /* Bold text on hover */
+            text-decoration: underline; /* Underline text on hover */
+        }
+        div a:focus {
+            font-weight: bold; /* Bold text on focus (when link is selected) */
+            text-decoration: underline; /* Underline text on focus (when link is selected) */
+        }
+        .navbar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #2a2828;
+            overflow-y: auto; /* Allow scrolling if navbar height exceeds viewport */
+            width: 200px; /* Set the width of the navbar */
+        }
+
+        .navbar-nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav li {
+            margin-right: 0; /* Remove right margin for list items */
+        }
+
+        .navbar-nav li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .navbar-nav li a:hover {
+            background-color: #555;
+        }
+
+        .navbar-logo {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .navbar-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Make the image circular */
+        }
+        
+        .card_container {
+            margin-top: 20px;
+            max-width: max-content;
+            display: flex;
+            gap: 20px; /* Adds space between cards */
+        }
+        /* Card styles */
+        .card {
+            max-width: 399.97px ;
+            flex: 1 0 calc(33.33% - 20px); /* Three cards per row with 20px margin */
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            margin: 5px 0;
+        }
+        
+        .view-details-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: auto;
+        }
+        
+        .view-details-button:hover {
+            background-color: #218838;
+        }
+        .card_container ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .create-exam-button {
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+        }
+        .create-exam-button:active{
+            color: rgb(60, 196, 226)
+        }
+        .create-exam-button:hover{
+            color:white; 
+           background-color: rgb(60, 196, 226);
+        }
+        .create-exam2-button {
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            position: fixed;
+            top: 20px;
+            right: 180px;
+            background-color: #007bff;
+        }
+        .create-exam2-button:active{
+            color: rgb(60, 196, 226)
+        }
+        .create-exam2-button:hover{
+            color:white; 
+           background-color: rgb(60, 196, 226);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="/College_proj.png" alt="Logo" style="width: 50px; height: 50px; ">
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="/batches">Batches</a></li>
+            <li><a href="/exam">Exams</a></li>
+            <li><a href="/resources">Resources</a></li>
+        </ul>
+    </nav>
+    <div style="padding-left: 220px; padding-top: 20px;">
+        <h1>Exams</h1>
+        <div style="display: block; display: flex; justify-content: space-between; max-width: 1280px;">
+            <a href="#scheduled-exams" id="scheduled-tab">Scheduled Exams</a>
+            <a href="#review-materials" id="review-tab">Review Materials</a>
+            <a href="#recent-exams" id="recent-tab">Recent Exams</a>
+        </div>
+    <!-- Create Exam Button -->
+    <button onclick="window.location.href='/create-exam'" class="create-exam-button">Create Exam</button>
+    <button onclick="window.location.href='/create-exam2'" class="create-exam2-button">Upload Questions</button>
+
+    <!-- Dashboard Content -->
+    <div id="scheduled-exams" class="dashboard-content">
+        <!-- Scheduled Exams Tab -->
+        <h2>Scheduled Exams</h2>
+        <div class="card_container">
+             <!-- Scheduled Exam Card -->
+             <ul>
+                <% scheduledExams.forEach(function(exam) { %>
+                    <li class="card">
+                        <h2>Exams <%= exam.course %></h2>
+                        <p><strong>Date:</strong> <%= exam.date %><p>
+                        <p><strong>Time:</strong> <%= exam.time %></p>
+                        <p><strong>Batch:</strong> <%= exam.batch %></p>
+                        <p><strong>Subject:</strong> <%= exam.subject %></p>
+                        <a href="/exam_details?examid=<%= encodeURIComponent(exam.examid) %>" class="view-details-button">View Details</a>
+                        <!-- Add more details as needed -->
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <!-- Review Materials Tab -->
+        <div id="review-materials" class="tab-content">
+
+            <h2>Review Materials</h2>
+           <div><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis sunt provident laborum eaque aperiam aut ratione cumque nisi autem. Omnis modi perspiciatis tempora veritatis ad iusto dignissimos suscipit illum aut.</div>
+        </div>
+
+        <!-- Recent Exams Tab -->
+        <div id="recent-exams" class="tab-content">
+            <h2>Recent Exams</h2>
+            <!-- Recent Exam Card -->
+            <div class="card">
+                <h3 class="card-header">1st Sem</h3>
+                <p><strong>Date:</strong> January 25, 2023</p>
+                <p><strong>Time:</strong> 10:00 AM</p>
+                <p><strong>Location:</strong> Exam Hall A</p>
+                <button class="button">View Details</button>
+            </div>
+
+            <div class="card">
+                <h3 class="card-header">2nd Sem</h3>
+                <p><strong>Date:</strong> January 20, 2022</p>
+                <p><strong>Time:</strong> 10:00 AM</p>
+                <p><strong>Location:</strong> Exam Hall A</p>
+                <button class="button">View Details</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+    <!-- Scripts for tab navigation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scheduledExams = document.getElementById('scheduled-exams');
+            const reviewMaterials = document.getElementById('review-materials');
+            const recentExams = document.getElementById('recent-exams');
+    
+            const showScheduledExams = () => {
+                scheduledExams.style.display = 'block';
+                reviewMaterials.style.display = 'none';
+                recentExams.style.display = 'none';
+            };
+    
+            const showReviewMaterials = () => {
+                scheduledExams.style.display = 'none';
+                reviewMaterials.style.display = 'block';
+                recentExams.style.display = 'none';
+            };
+    
+            const showRecentExams = () => {
+                scheduledExams.style.display = 'none';
+                reviewMaterials.style.display = 'none';
+                recentExams.style.display = 'block';
+            };
+    
+            // Event listeners for tab navigation
+            document.getElementById('scheduled-tab').addEventListener('click', showScheduledExams);
+            document.getElementById('review-tab').addEventListener('click', showReviewMaterials);
+            document.getElementById('recent-tab').addEventListener('click', showRecentExams);
+    
+            // Initialize the display based on the active tab
+            const activeTab = document.querySelector('.active-tab');
+            if (activeTab) {
+                const tabId = activeTab.getAttribute('href').substring(1);
+                const activeContent = document.getElementById(tabId);
+                if (activeContent) {
+                    activeContent.style.display = 'block';
+                }
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

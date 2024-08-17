@@ -1,0 +1,39 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="background">
+        <div class="container">
+        <h2>Sign In</h2>
+        <form action="/signin" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required><br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="Enter your Email" required><br>
+            <label for="contact">Contact:</label>
+            <input type="tel" name="contact" id="contact" placeholder="Enter your Phone number" required><br>
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select><br>
+            <label for="dob">D.O.B</label>
+            <input type="date" name="dob" id="DOB" required><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Create a new username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Create a new password " required><br>
+            <button class="button" type="submit">Sign In</button>
+        </form>
+        <p style="color: black; margin-left: 50px;">Already a user. <a href="/login" style="color: darkmagenta;">admin login</a></p>
+    </div>
+</div>
+</body>
+</html>

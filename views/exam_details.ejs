@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h3, h4 {
+            margin: 10px 0;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exam ID: <%= examid %></h1>
+        <h1>Schedule:</h1>
+        <ul>
+            <li><%= examSchedule.course %></li>
+            <li><%= examSchedule.batch %></li>
+            <li><%= examSchedule.time %></li>
+            <li><%= examSchedule.date %></li>
+            <li><%= examSchedule.duration %></li>
+            <li><%= examSchedule.subject %></li>
+        </ul>
+        <h1>Questions:</h1>
+        <% examQuestions.forEach(question => { %>
+            <h3><%= question.question %></h3>
+            <ul>
+                <li><h4><%= question.choice1 %></h4></li>
+                <li><h4><%= question.choice2 %></h4></li>
+                <li><h4><%= question.choice3 %></h4></li>
+                <li><h4><%= question.choice4 %></h4></li>
+            </ul>
+            <h3>Answer:</h3><h4><%= question.correct_answer %></h4>
+        <% }); %>
+    </div>
+</body>
+</html>

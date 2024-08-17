@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calender</title>
+	<style>
+		@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;800&display=swap");
+
+body {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	font-family: "Poppins", serif;
+	background: rgb(238, 174, 202);
+	background: radial-gradient(
+		circle,
+		rgb(83, 128, 132) 0%,
+		rgba(148, 187, 233, 1) 100%
+	);
+}
+h1 {
+	font-weight: 800;
+	margin: 1rem 0 0;
+}
+
+ul {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	flex-wrap: wrap;
+	list-style: none;
+
+	li {
+		display: flex;
+		width: 10rem;
+		height: 10rem;
+		margin: 0.25rem;
+		flex-flow: column;
+		border-radius: 0.2rem;
+		padding: 1rem;
+		font-weight: 300;
+		font-size: 0.8rem;
+		box-sizing: border-box;
+		background: rgba(255, 255, 255, 0.25);
+		box-shadow: 0 8px 32px 0 rgba(18, 80, 87, 0.37);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+
+		time {
+			font-size: 2rem;
+			margin: 0 0 1rem 0;
+			font-weight: 500;
+		}
+	}
+
+	li:hover{
+		color:white;
+		background-color:rgb(113, 113, 113);
+	}
+	.today {
+		time {
+			font-weight: 800;
+		}
+		background: #ffffff70;
+	}
+}
+
+	</style>
+</head>
+<body>
+	<!-- days sourced from: https://nationaldaycalendar.com/february/ -->
+	<h1>May 2024</h1>
+	<p>Holidays Holidays and evenst </a>
+		<ul>
+			<li><time datetime="2022-02-01">1</time>College meeting</li>
+			<li><time datetime="2022-02-02">2</time>Classes</li>
+			<li><time datetime="2022-02-03">3</time>Classes</li>
+			<li><time datetime="2022-02-04">4</time>Exams</li>
+			<li><time datetime="2022-02-05">5</time>Holiday</li>
+			<li><time datetime="2022-02-06">6</time>Exams</li>
+			<li><time datetime="2022-02-07">7</time>ok </li>
+			<li><time datetime="2022-02-08">8</time>Kite Flying Day</li>
+			<li><time datetime="2022-02-09">9</time>Day</li>
+			<li><time datetime="2022-02-10">10</time>Sunday</li>
+			<li><time datetime="2022-02-11">11</time>Inventor's Day</li>
+			<li><time datetime="2022-02-12">12</time>Global Mother's Day</li>
+			<li><time datetime="2022-02-13">13</time>Tortellini Day</li>
+			<li><time datetime="2022-02-14">14</time>Trem meeting</li>
+			<li><time datetime="2022-02-15">15</time>Club competitions </li>
+			<li><time datetime="2022-02-16">16</time>Histoic day </li>
+			<li><time datetime="2022-02-17">17</time>Sports meet</li>
+			<li><time datetime="2022-02-18">18</time>Sports meet</li>
+			<li class="today"><time datetime="2022-02-19">19</time>Closing ceremony</li>
+			<li><time datetime="2022-02-20">20</time>Elections</li>
+			<li><time datetime="2022-02-21">21</time>field day</li>
+			<li><time datetime="2022-02-22">22</time>break</li>
+			<li><time datetime="2022-02-23">23</time>Birthday</li>
+			<li><time datetime="2022-02-24">24</time>Classes</li>
+			<li><time datetime="2022-02-25">25</time>Classes</li>
+			<li><time datetime="2022-02-26">26</time>Practicals a</li>
+			<li><time datetime="2022-02-27">27</time>Polar bear</li>
+			<li><time datetime="2022-02-28">28</time>electronic</li>
+			<li><time datetime="2022-02-28">29</time>Classes</li>
+			<li><time datetime="2022-02-28">30</time>Sunday</li>
+		</ul>
+		
+	</body>
+	</html>

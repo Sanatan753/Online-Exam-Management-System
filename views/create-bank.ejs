@@ -1,0 +1,34 @@
+<%- include('./partials/header.ejs') %>
+<body>
+    <form id="questionForm" method="post" action="/save-question">
+        <label for="course">Course: </label>
+        <select id="course" name="course" required>
+            <option value="">Select a course...</option>
+            <option value="ITM">ITM</option>
+            <option value="IST">IST</option>
+            <option value="DSM">DSM</option>
+            <option value="CS">CS</option>
+            <!-- Add more options as needed -->
+        </select><br>
+        <label for="question">Question:</label><br>
+        <textarea id="editor" name="question"></textarea><br>
+        <label for="options">Options:</label><br>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Variable-sized columns with a minimum width of 200px */
+        gap: 20px; /* Gap between grid items */ padding: 20px;">
+        <input type="text" name="choice1" placeholder="Option 1"><br>
+        <input type="text" name="choice2" placeholder="Option 2"><br>
+        <input type="text" name="choice3" placeholder="Option 3"><br>
+        <input type="text" name="choice4" placeholder="Option 4"><br>
+        <div><label for="correct_answer">Correct Answer:</label><br>
+        <select id="correct_answer" name="correct_answer">
+            <option value="choice1">Option 1</option>
+            <option value="choice2">Option 2</option>
+            <option value="choice3">Option 3</option>
+            <option value="choice4">Option 4</option>
+        </select><br></div>
+        </div>
+        <button style="margin-top: 20px; width: 100%; padding: 10px; background-color: #007bff; color: #fff; border:solid black;
+        border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;" type="submit">Save Question</button>
+    </form>
+</body>
+</html>

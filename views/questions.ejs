@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') %>
+
+<h1>Question Bank for <%= course %></h1>
+<form action="/save-selected-questions" method="post"> <!-- Form for selecting questions -->
+    <input type="hidden" name="examid" value="<%= examid %>">
+    <ul>
+        <% questions.forEach(function(question) { %>
+            <li>
+                <label>
+                    <input type="checkbox" name="selectedQuestions[]" value= "<%= question.question_id %>" >
+                    <div class="question"><%= question.question %></div>
+                    <div class="options">
+                        <ol>
+                            <li>A: <%= question.choice1 %></li>
+                            <li>B: <%= question.choice2 %></li>
+                            <li>C: <%= question.choice3 %></li>
+                            <li>D: <%= question.choice4 %></li>
+                        </ol>
+                    </div>
+                </label>
+            </li>
+        <% }); %>
+    </ul>
+    <button type="submit">Save Selected Questions</button>
+</form>
+</body>
+</html>

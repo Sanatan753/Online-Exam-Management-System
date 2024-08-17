@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .student-details-modal {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         background-color: white;
+         border: 1px solid black;
+         padding: 20px;
+         z-index: 1000;
+        }
+
+        .student-details-modal h2 {
+            margin-bottom: 10px;
+        }
+
+        .student-details-modal button {
+            margin-top: 10px;
+        }
+        /* Table style */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  /* margin-top: 10%; */
+}
+
+/* Table header style */
+th {
+  background-color: #f2f2f2;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Table cell style */
+td {
+  border: 1px solid #dddddd;
+  padding: 10px;
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Button style */
+.batch-details-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.batch-details-button:hover {
+  background-color: #0056b3;
+}
+.upload-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5% 0 5% 90%;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: #0056b3;
+}
+
+
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href='/studentupload'" class="upload-btn">Upload new Student Details</button>
+    <table>
+        <tr>
+            <th>Student Id</th>
+            <th>Student Name</th>
+            <th>Student Details</th>
+        </tr>
+        
+        <% for(let student of students) { %>
+        <tr>
+            <td><%= student.student_ID %> </td>
+            <td><%= student.student_name %></td>
+            <td><button class="batch-details-button" onclick="showStudentDetails('<%= student.student_name %>', '<%= student.student_ID %>', '<%= student.address %>','<%= student.student_email %>','<%= student.student_email %>')">Details</button></td>
+           <% } %>
+        </tr>     
+    </table>
+    
+    <script>
+        function showStudentDetails(studentname, studentid, studentaddress, studentmail) {
+            // Create a modal element
+            const modal = document.createElement('div');
+            modal.classList.add('student-details-modal');
+            // Create the content for the modal
+            const modalContent = `
+                <h2>Name: ${studentname}</h2>
+                <p>ID: ${studentid}</p>
+                <p>Address: ${studentaddress}</p>
+                <p>Email: ${studentmail}</p>
+                <button onclick="closeModal()">Close</button>
+            `;
+        
+            // Set the modal content
+            modal.innerHTML = modalContent;
+        
+            // Append the modal to the document body
+            document.body.appendChild(modal);
+        }
+        
+        function closeModal() {
+            // Remove the modal from the document
+            const modal = document.querySelector('.student-details-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+    </script>
+    
+</body>
+</html>

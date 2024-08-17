@@ -1,0 +1,217 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+        body {
+            background-color: #f3f0e7;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .right{
+            display: inline-block;
+            position: relative;
+            left: 450px;
+        }
+        h3 {
+            display: inline; /* Display as inline to wrap around image */
+            padding-left: 15px;
+            position: relative;
+            top: -15px;
+            font-size: 25px;
+        }
+        .button {
+            display: inline;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: azure;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .button:active{ color: rgb(60, 196, 226)}
+        .button:hover{
+                color:white;
+                background-color: rgb(60, 196, 226);
+            }
+
+        .navbar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #2a2828;
+            overflow-y: auto; /* Allow scrolling if navbar height exceeds viewport */
+            width: 200px; /* Set the width of the navbar */
+        }
+
+        .navbar-nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav li {
+            margin-right: 0; /* Remove right margin for list items */
+        }
+
+        .navbar-nav li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .navbar-nav li a:hover {
+            background-color: #555;
+        }
+        .navbar-logo {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .navbar-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Make the image circular */
+        }
+        a{
+            color: black;
+            text-decoration: none;
+        }
+        a img{
+            display: inline-block;
+        }
+        .dashboard_cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Variable-sized columns with a minimum width of 200px */
+            gap: 20px; /* Gap between grid items */
+            padding: 20px;
+        }
+        .grid-item {
+            color: #4b5563;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .grid-item:hover{
+            background-color: #a2a2a2;
+        }
+
+
+
+        .card1 {
+            grid-column: span 2;
+            grid-row: span 2; /* This item spans 2 columns */
+        }
+        .card2 {
+            grid-column: span 1;
+            grid-row: span 2; /* This item spans 2 rows */
+        }
+        .card3 {
+            grid-column: span 2;
+            grid-row: span 2; /* This item spans 2 rows */
+        }
+        .card4{
+            grid-row: span 2;
+            grid-column: span 2;
+        }
+        .card5{
+            grid-column: span 3;
+            grid-row: span 2;
+            height: 180px;
+            overflow-y: auto;
+        }
+        .card6 {
+            grid-column: span 5; /* This item spans 3 columns */
+            grid-row: span 2; /* This item spans 2 rows */
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="/College_proj.png" alt="Logo" style="width: 50px; height: 50px; ">
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/dashboard?adminname=<%=encodeURIComponent(adminname)%>">Dashboard</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="/batches">Batches</a></li>
+            <li><a href="/exam">Exams</a></li>
+            <li><a href="/resources">Resources</a></li>
+        </ul>
+    </nav>
+    <div style="padding-left: 220px; padding-top: 20px;">
+        <h2 class="bigger" style="display: inline;" >Welcome to your Dashboard, <%= adminname %></h2>
+        <a href="/Admin_profile"><h2 class="right button">Admin Details</h2></a>
+    <div class="dashboard_cards">
+        <!-- Admin Panel Card -->
+        <a href="/documents" class="grid-item card1">
+            <img src="/logo1.png" alt="Logo 1" style="width: 50px; height: 50px;">
+            <h3>Documents</h3>
+            <p>Manage course resources and notice documents</p>
+        </a>
+
+        <!-- Batches Card -->
+        <a href="/batches" class="grid-item card2">
+            <img src="/logo2.png" alt="Logo 2" style="width: 50px; height: 50px;" >
+            <h3>Student </h3>
+            <p>View and manage student entries.</p>
+        </a>
+
+        <a href="/create-event" class="grid-item card3">
+            <!-- <img src="/logo3.png" alt="Logo 3" style="width: 50px; height: 50px;"> -->
+            <h3>Create Event</h3>
+            <p>Organize an event</p>
+        </a>
+        
+        <a href="/schedules" class="grid-item card4">
+            <img src="/logo4.png" alt="Logo 4" style="width: 50px; height: 50px;" >
+            <h3>Schedules</h3>
+            <p>Create and share a proper calender with schedules.</p>
+        </a>
+
+        <a href="/todo" class="grid-item card5">
+            <img src="/logo5.png" alt="Logo 5" style="width: 50px; height: 50px;" >
+            <h3>Feedbacks </h3>
+            <table>
+                <tr>
+                    <th>feedback</th>
+                    <th>Student Name</th>
+                    <th>id </th>
+                    <th>course</th>
+                </tr>
+             <% for(let feedback of feedbacks){%>
+                <tr>
+                    <td><%=feedback.feedback%></td>
+                    <td><%=feedback.student_name%></td>
+                    <td><%=feedback.student_id%></td>
+                    <td><%=feedback.course%></td>
+                </tr>
+             <%}%>
+        </table>
+        </a>
+
+        <div class="grid-item card6">
+            <img src="/logo6.png" alt="Logo 6" style="width: 50px; height: 50px;">
+            <h1>Create Notice</h1>
+            <form action="/create_notice" method="POST">
+              <label for="notice">Notice:</label><br>
+              <textarea id="notice" name="notice" rows="4" cols="50" required></textarea><br>
+              <button type="submit">Create Notice</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+   <!-- Tasks table will be here after creating the task table in db -->
+</body>
+</html>

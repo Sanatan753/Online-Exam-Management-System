@@ -1,0 +1,93 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/public/user_login_logo.jpeg" type="jpeg">
+    <title>Student|Log In</title>
+    <link rel="stylesheet" href="style.css">
+    <style>/* General styles for the form */
+        form {
+          max-width: 400px;
+          margin: 20px auto;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+        h2{
+            color: white;
+            font-size: 40px;
+        }
+        label {
+          display:inline;
+          margin-bottom: 5px;
+        }
+        
+        input[type="text"],input[type="password"] {
+          display: inline;
+          width:80%;
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        
+        button {
+            font-family: "Graphik", sans-serif;;
+            font-size: large;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Square div style */
+        .square {
+            display: inline;
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+        }
+        .inaline{
+            display: flex;
+            flex-direction: row;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 600px) {
+          form {
+            max-width: 100%;
+          }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        </style>
+</head>
+<body class="user_background_login">
+    <div class="user_container_login">
+        <h2>Welcome Back!</h2>
+        <form action="/studentlogin" method="POST">
+            <label for="studentid">Student Id:</label>
+            <div class="inaline">
+                <div class="square studentid_icon"></div>
+                <input type="text" id="studentid" name="studentid" placeholder="Student ID" required><br></div>
+            <label for="password">Password:</label>
+            <div class="inaline">
+                <div class="square password_icon"></div>
+                <input type="password" id="password" name="password" placeholder="Password" required><br></div>
+            <button class="button" type="submit">Login</button>
+        </form> 
+    </div>
+</body>
+</html>

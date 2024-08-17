@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+ 
+/* File Upload Form Styles */
+form {
+    width: calc(50% - 10px); /* 50% width with margin between */
+    vertical-align: top;
+}
+
+input[type="file"] {
+    width: 96.5%;
+    padding: 10px 0px 10px 10px ;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+.excel-upload{
+    width: 350px !important;
+    /* height: 400px; */
+    padding: 20px;
+    /* margin-bottom: 10%; */
+}
+
+
+
+    </style>
+</head>
+<body class="body_create-exam2">
+    
+    <div class="container_create-exam2">
+        <h1>Upload Excel File</h1>
+        <form id="uploadForm" class="excel-upload" enctype="multipart/form-data" method="post" action="/uploadstudent">
+        <div>
+            <label for="excelFile">Choose Excel File:</label>
+            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls">
+            <button type="submit">Upload</button>
+        </div>
+       </form>
+       <a href="/studententry.xlsx" download>Click here</a> to download the demo Excel file.
+</div>
+   
+    <!-- JavaScript for file validation using jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').submit(function(event) {
+                const filePath = $('#excelFile').val();
+                const fileExtension = filePath.split('.').pop().toLowerCase();
+                if (fileExtension === 'xlsx' || fileExtension === 'xls') {
+                    // File is an Excel file, allow form submission
+                    return true;
+                } else {
+                    alert('Please choose an Excel file (.xlsx or .xls) to upload.');
+                    event.preventDefault(); // Prevent form submission
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

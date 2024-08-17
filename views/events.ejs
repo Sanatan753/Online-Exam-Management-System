@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        .event-details-modal {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         background-color: white;
+         border: 1px solid black;
+         padding: 20px;
+         z-index: 1000;
+        }
+
+        .event-details-modal h2 {
+            margin-bottom: 10px;
+        }
+
+        .event-details-modal button {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Initialize arrays for different event categories -->
+<%
+const today = new Date(); // Get today's date
+const upcomingEvents = [];
+const todayEvents = [];
+const completedEvents = [];
+
+// Loop through events to categorize them
+for (let event of events) {
+    const eventDate = new Date(event.event_date);
+
+    // Format the event date to dd/mm/yyyy format
+    const formattedDate = eventDate.toLocaleDateString('en-GB');
+
+    // Categorize events based on date
+    if (eventDate > today) {
+        upcomingEvents.push({ ...event, formattedDate });
+    } else if (eventDate.getDate() === today.getDate() && eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear()) {
+        todayEvents.push({ ...event, formattedDate });
+    } else {
+        completedEvents.push({ ...event, formattedDate });
+    }
+}
+%>
+
+<!-- Display upcoming events -->
+<h2>Upcoming Events</h2>
+<ul>
+    <% for (let event of upcomingEvents) { %>
+        <li>
+            <%= event.formattedDate %> - <%= event.event_name %>
+            <button class="event-details-button" onclick="showEventDetails('<%= event.event_name %>', '<%= event.event_date %>', '<%= event.event_description %>')">Details</button>
+        </li>
+    <% } %>
+</ul>
+
+<!-- Display today's events -->
+<h2>Today's Events</h2>
+<ul>
+    <% for (let event of todayEvents) { %>
+        <li>
+            <%= event.formattedDate %> - <%= event.event_name %>
+            <button class="event-details-button" onclick="showEventDetails('<%= event.event_name %>', '<%= event.event_date %>', '<%= event.event_description %>')">Details</button>
+        </li>
+    <% } %>
+</ul>
+
+<!-- Display completed events -->
+<h2>Completed Events</h2>
+<ul>
+    <% for (let event of completedEvents) { %>
+        <li>
+            <%= event.formattedDate %> - <%= event.event_name %>
+            <button class="event-details-button" onclick="showEventDetails('<%= event.event_name %>', '<%= event.event_date %>', '<%= event.event_description %>')">Details</button>
+        </li>
+    <% } %>
+</ul>
+
+<script>
+    function showEventDetails(eventName, eventDate, eventDescription) {
+    // Create a modal element
+    const modal = document.createElement('div');
+    modal.classList.add('event-details-modal');
+    const date = new Date(eventDate);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Month is zero-based, so add 1
+    const year = date.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    // const eventdate = eventDate.toLocaleDateString('en-GB');
+    // Create the content for the modal
+    const modalContent = `
+        <h2>${eventName}</h2>
+        <p>Date: ${formattedDate}</p>
+        <p>Description: ${eventDescription}</p>
+        <button onclick="closeModal()">Close</button>
+    `;
+
+    // Set the modal content
+    modal.innerHTML = modalContent;
+
+    // Append the modal to the document body
+    document.body.appendChild(modal);
+}
+
+function closeModal() {
+    // Remove the modal from the document
+    const modal = document.querySelector('.event-details-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+</script>
+</body>
+</html>

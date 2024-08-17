@@ -1,0 +1,28 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="style.css">
+    <style>h2{
+        color: white;
+        font-size: 40px;
+    }
+    </style>
+</head>
+<body class="background_login"> 
+    <div class="container_login">
+        <h2>Admin Log in</h2>
+        <form action="/login" method="POST">
+            <label for="adminid">Admin Id:</label>
+            <input type="text" id="adminid" name="adminid" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <button class="button" type="submit">Login</button>
+        </form>
+        <p style="color: aliceblue; margin-left: 100px;">not a user yet. <a href="/signin" style="color: blueviolet;">sign in</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Meeting</title>
+</head>
+<body>
+  <h1>Create Meeting</h1>
+  <form action="/create-meeting" method="POST">
+    <label for="meetingName">Meeting Name:</label>
+    <input type="text" id="meetingName" name="meetingName" required><br>
+
+    <label for="meetingDate">Date:</label>
+    <input type="date" id="meetingDate" name="meetingDate" required><br>
+
+    <label for="meetingTime">Time:</label>
+    <input type="time" id="meetingTime" name="meetingTime" required><br>
+
+    <label for="meetingDescription">Description:</label>
+    <textarea id="meetingDescription" name="meetingDescription"></textarea><br>
+
+    <label for="invitedStudents">Invited Students:</label><br>
+    <% students.forEach(student => { %>
+        <input type="checkbox" id="<%= student.student_ID %>" name="invitedStudents[]" value="<%= student.student_ID %>">
+        <label for="<%= student.student_ID %>"><%= student.student_name %></label><br>
+    <% }); %>
+
+    <input type="submit" value="Create Meeting">
+</form>
+
+</body>
+</html>

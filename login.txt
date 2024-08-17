@@ -1,0 +1,88 @@
+1. Update app.js
+
+// Login route
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+        if (err) throw err;
+
+        if (results.length > 0) {
+            const user = results[0];
+
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) throw err;
+
+                if (isMatch) {
+                    res.send('Login successful');
+                } else {
+                    res.send('Incorrect password');
+                }
+            });
+        } else {
+            res.send('User not found');
+        }
+    });
+});
+
+2. login.ejs 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+
+3. main app.js
+
+// Render the login page
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+// Handle login form submission
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+        if (err) throw err;
+
+        if (results.length > 0) {
+            const user = results[0];
+
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) throw err;
+
+                if (isMatch) {
+                    res.send('Login successful');
+                } else {
+                    res.send('Incorrect password');
+                }
+            });
+        } else {
+            res.send('User not found');
+        }
+    });
+});
+
+// Start server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});

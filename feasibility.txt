@@ -1,0 +1,36 @@
+User authentication
+
+Project Planner
+|_Project Creation
+   |_Declaration
+   |_Documentation
+      |_Objective (Need , Scope)
+      |_Analysis (feasibility, <model>, timeline)
+      |  #below processes can be varied from model to model
+      |_Requirement (Resources, Technology Required)
+      |_Functional requirements (Feature Design,Performance requirement)
+   |_Team management and tracker / team dashboard
+       |_Hosting
+       |_Team gathering <future objective:on the basis of skills and experience required->employee rating system [admin:employee data entry]>(invitation)
+       |_Responsibility distribution
+       |_Real time task tracker (in-out tracker)
+       |_Time allocation (for whole task and each task on the basis of priority and time needed)
+       |_alert system (web notification, google calender notification, mail alert, flash message alert )
+
+   |_Tools
+     |_Diagram Creator (different site)<future objective: gen ai integration>
+     |_meeting tools (chart system,<future objective:video conferencing>)
+     |_<future objective:ai integrated code pen>
+     |_Task Tracker 
+   |_Implemantation
+     |_Git Automation (different project)
+   |_Maintainance
+      |_Tone Checking
+      |_Code quality assurance
+      |_Performance analysis 
+      |_Beta version testing tools 
+      |_Testing
+       
+
+
+

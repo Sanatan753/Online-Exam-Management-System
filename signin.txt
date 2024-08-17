@@ -1,0 +1,112 @@
+1.Setting up
+
+project-folder
+├── node_modules
+├── public
+│   └── styles.css (for styling if needed)
+├── views
+│   └── signin.ejs
+├── app.js
+└── package.json
+
+2. install packages
+
+npm install express ejs mysql bcrypt
+
+3. Create database 
+
+4. Configure app.js
+
+const express = require('express');
+const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+const app = express();
+const port = 3000;
+
+// MySQL Connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'your_username',
+    password: 'your_password',
+    database: 'your_database_name'
+});
+
+db.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to MySQL database');
+});
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+// Routes
+app.get('/signin', (req, res) => {
+    res.render('signin');
+});
+
+app.post('/signin', (req, res) => {
+    const { username, password } = req.body;
+
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) throw err;
+
+        const user = { username, password: hash };
+
+        db.query('INSERT INTO users SET ?', user, (err, result) => {
+            if (err) throw err;
+            res.send('User signed in successfully');
+        });
+    });
+});
+
+// Start server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
+
+5. Create signin.ejs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+<body>
+    <h1>Sign In</h1>
+    <form action="/signin" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>
+
+6. updated signin.js 
+
+app.post('/signin', (req, res) => {
+    const { name, username, password } = req.body;
+
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) throw err;
+
+        const user = { name, username, password: hash };
+
+        db.query('INSERT INTO users SET ?', user, (err, result) => {
+            if (err) throw err;
+            res.send('User signed in successfully');
+        });
+    });
+});
+
+7. updated signin.ejs
+
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required><br>

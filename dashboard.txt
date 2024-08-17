@@ -1,0 +1,224 @@
+1. Initial dashboard
+
+app.js
+
+// Render user dashboard
+app.get('/dashboard', (req, res) => {
+    // Assuming you have a session variable containing the user's ID after successful login
+    const userId = req.session.userId;
+
+    // Fetch user details and tasks from the database
+    db.query('SELECT * FROM users WHERE id = ?', [userId], (err, userResults) => {
+        if (err) throw err;
+
+        if (userResults.length > 0) {
+            const user = userResults[0];
+
+            db.query('SELECT * FROM tasks WHERE user_id = ?', [userId], (err, tasksResults) => {
+                if (err) throw err;
+
+                // Render the dashboard with user details and tasks
+                res.render('dashboard', { user, tasks: tasksResults });
+            });
+        } else {
+            res.send('User not found');
+        }
+    });
+});
+
+dashboard.ejs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, <%= user.username %></h1>
+
+    <h2>User Details:</h2>
+    <ul>
+        <li>User ID: <%= user.id %></li>
+        <!-- Add other user details here -->
+    </ul>
+
+    <h2>Tasks:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Description</th>
+                <!-- Add other task columns here -->
+            </tr>
+        </thead>
+        <tbody>
+            <% tasks.forEach(task => { %>
+                <tr>
+                    <td><%= task.id %></td>
+                    <td><%= task.description %></td>
+                    <!-- Add other task details here -->
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
+
+login route in app.js
+
+// Handle login form submission
+app.post('/login', (req, res) => {
+    // Existing login code...
+
+    // Assuming you have verified the username and password
+    // Set the user ID in the session
+    req.session.userId = user.id;
+
+    // Redirect to the user dashboard
+    res.redirect('/dashboard');
+});
+
+
+express-session
+
+const session = require('express-session');
+
+app.use(session({
+    secret: 'your_secret_key', // Change this to a random string
+    resave: false,
+    saveUninitialized: true
+}));
+
+
+2. Updated dashboard 
+
+updated app.js for signin and login
+
+// Signup route
+app.post('/signup', (req, res) => {
+    const { name, username, password } = req.body;
+
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) throw err;
+
+        const user = { name, username, password: hash };
+
+        db.query('INSERT INTO users SET ?', user, (err, result) => {
+            if (err) throw err;
+            res.send('User signed up successfully');
+        });
+    });
+});
+
+// Login route
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+        if (err) throw err;
+
+        if (results.length > 0) {
+            const user = results[0];
+
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) throw err;
+
+                if (isMatch) {
+                    // Redirect to the user dashboard with user ID
+                    res.redirect(`/dashboard/${user.id}`);
+                } else {
+                    res.send('Incorrect password');
+                }
+            });
+        } else {
+            res.send('User not found');
+        }
+    });
+});
+
+// Render user dashboard based on user ID
+app.get('/dashboard/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    // Fetch user details and tasks from the database
+    db.query('SELECT * FROM users WHERE id = ?', [userId], (err, userResults) => {
+        if (err) throw err;
+
+        if (userResults.length > 0) {
+            const user = userResults[0];
+
+            db.query('SELECT * FROM tasks WHERE user_id = ?', [userId], (err, tasksResults) => {
+                if (err) throw err;
+
+                // Render the dashboard with user details and tasks
+                res.render('dashboard', { user, tasks: tasksResults });
+            });
+        } else {
+            res.send('User not found');
+        }
+    });
+});
+
+
+updated signin.ejs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+<body>
+    <h1>Sign In</h1>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>
+
+updated dashboard.ejs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, <%= user.username %></h1>
+
+    <h2>User Details:</h2>
+    <ul>
+        <li>User ID: <%= user.id %></li>
+        <!-- Add other user details here -->
+    </ul>
+
+    <h2>Tasks:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Description</th>
+                <!-- Add other task columns here -->
+            </tr>
+        </thead>
+        <tbody>
+            <% tasks.forEach(task => { %>
+                <tr>
+                    <td><%= task.id %></td>
+                    <td><%= task.description %></td>
+                    <!-- Add other task details here -->
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
